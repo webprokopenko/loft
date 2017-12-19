@@ -1,0 +1,1 @@
+console.log('firts');console.log('second');console.log('third');

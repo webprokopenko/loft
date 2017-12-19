@@ -5,6 +5,15 @@ if (env.error) {
   throw env.error
 }
 
-console.log(env.parsed.TIME);
+const time = env.parsed.TIME;
+const interval = env.parsed.INTERVAL;
 
-// console.log(process.env.DB_HOST);
+var intervalId = setInterval(function() {
+    console.log("сет интервал");
+  }, interval);
+
+ var timeoutId = setTimeout(function(){
+    console.log( 'Конец сет интервала' );
+    clearInterval(intervalId);
+  }, time);
+  

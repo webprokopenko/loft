@@ -10,6 +10,7 @@ const sortedPath = './sorted';
 function statsBase(localBase){
     return new Promise(function(resolve, reject) {
         let stats = fs.stat(localBase,(err,data)=>{
+            if(err) reject(err);
             resolve(data.isDirectory());
         });
     });
@@ -23,7 +24,6 @@ const scanDir = async base =>{
                 (directory)=>{
                     if(directory){
                         scanDir(localBase);
-                        console.log("Directory: " + localBase);
                     }else{
                         insertSortedDir(item,base);
                     } 

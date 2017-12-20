@@ -15,7 +15,7 @@ const interval = env.parsed.INTERVAL;
 
 
 
-let  StartServer = function() {
+let  StartServer = function(callback) {
     server = http.createServer(function (request, response) {
 
         let intervalId = setInterval(function () {
@@ -25,10 +25,13 @@ let  StartServer = function() {
 
         let timeoutId = setTimeout(function () {
             clearInterval(intervalId);
+            callback(server);
         }, time);
 
     }).listen(3002);
 };
 
-StartServer();
+StartServer((data)=>{
+    data.close();
+});
 

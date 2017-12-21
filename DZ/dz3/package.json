@@ -17,8 +17,10 @@
     "run-sequence": "^1.2.2"
   },
   "dependencies": {
+    "express": "^4.16.2",
     "jquery": "^1.11.3",
     "normalize.css": "^7.0.0",
+    "pug": "^2.0.0-rc.4",
     "qtip2": "^3.0.3"
   }
 }

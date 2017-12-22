@@ -24,6 +24,6 @@ app.use(function(err, req, res, next) {
   res.render('error', { message: err.message, error: err });
 });
 
-const server = app.listen(process.env.PORT || 4000, function() {
+const server = app.listen(process.env.PORT || 5000, function() {
   console.log('Сервер запущен на порте: ' + server.address().port);
 });

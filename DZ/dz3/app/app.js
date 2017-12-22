@@ -1,10 +1,14 @@
 const express = require('express');
 const path = require('path');
+const bodyParser = require('body-parser');
 var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
+// body parser set
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -21,9 +25,9 @@ app.use(function(req, res, next) {
 app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
-  res.render('error', { message: err.message, error: err });
+  //res.render('error', { message: err.message, error: err });
 });
 
-const server = app.listen(process.env.PORT || 5000, function() {
+const server = app.listen(process.env.PORT || 2200, function() {
   console.log('Сервер запущен на порте: ' + server.address().port);
 });

@@ -1,0 +1,14 @@
+{
+    "mail": {
+      "subject": "Сообщение с сайта",
+      "smtp": {
+        "host": "smtp.gmail.com",
+        "port": 465,
+        "secure": true,
+        "auth": {
+          "user": "test.prokopenko03@gmail.com",
+          "pass": "Joni3337749"
+        }
+      }
+    }
+  }

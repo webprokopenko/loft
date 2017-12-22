@@ -12,6 +12,7 @@ router.post('/', ctrlHome.sendData);
 router.get('/my-work',ctrlMyWork.getIndex);
 
 router.get('/contact-me', ctrlContant.getIndex);
+router.post('/contact-me',ctrlContant.sendEmail)
 
 router.get('/login', ctrlLogin.getIndex);
 

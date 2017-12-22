@@ -12,7 +12,7 @@ block content
       h2.aboutbox-header-big У вас интересный проект? Напишите мне!
     .aboutbox-body
       .contact-form-wrap
-        form.form.contact-form#contact-me(action='/' method="POST" enctype="application/x-www-form-urlencoded")
+        form.form.contact-form#contact-me(action='/contact-me' method="POST" enctype="application/x-www-form-urlencoded")
           //- Вывод сообщений с сервера
           .server-mes.error-mes
           .server-mes.success-mes
@@ -25,7 +25,7 @@ block content
             //- email
             .form-group.pull-right
               label.label(for="email") Email
-              input.input(type="text", name="email", placeholder="Куда мне писать", qtip-position="right", qtip-content="Вы не ввели email")
+              input.input(type="email", name="email", placeholder="Куда мне писать", qtip-position="right", qtip-content="Вы не ввели email")
             //- Сообщение 
           .form-group
             label.label(for="message") Сообщение

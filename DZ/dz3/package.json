@@ -17,6 +17,7 @@
     "run-sequence": "^1.2.2"
   },
   "dependencies": {
+    "body-parser": "^1.18.2",
     "express": "^4.16.2",
     "jquery": "^1.11.3",
     "normalize.css": "^7.0.0",

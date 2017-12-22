@@ -12,7 +12,7 @@ block content
       h2.aboutbox-header-big У вас интересный проект? Напишите мне!
     .aboutbox-body
       .contact-form-wrap
-        form.form.contact-form#contact-me
+        form.form.contact-form#contact-me(action='/' method="POST" enctype="application/x-www-form-urlencoded")
           //- Вывод сообщений с сервера
           .server-mes.error-mes
           .server-mes.success-mes

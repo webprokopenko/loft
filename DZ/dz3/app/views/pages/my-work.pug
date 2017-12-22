@@ -2,6 +2,7 @@ extends ../layouts/main_layout.pug
 
 block link
 	-var selected = 'Мои работы';
+	
 
 block title
 	title= title 
@@ -53,8 +54,16 @@ block content
 						a.project-link(href="http://loftschool.com/", target="_blank") loftschool.com
 						.project-desc Школа онлайн образования
 					//- Добавить проект
-					li.projects-item.add-new-item
-						a.add-new-link#add-new-item(href="#")
-							.add-new-text Добавить проект
-
+					if(isAdmin)
+							li.projects-item.add-new-item
+								a.add-new-link#add-new-item(href="#")
+									.add-new-text Добавить проект
+					//- Изображения из базы	
+					- var values = [];
+					ul
+  						each val in values
+    						li= val
+  						else
+    						li There are no values							
+							
 	include ../common/popup.pug

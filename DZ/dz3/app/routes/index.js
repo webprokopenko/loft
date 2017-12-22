@@ -10,10 +10,12 @@ router.get('/', ctrlHome.getIndex);
 router.post('/', ctrlHome.sendData);
 
 router.get('/my-work',ctrlMyWork.getIndex);
+router.post('/my-work',ctrlMyWork.addWork);
 
 router.get('/contact-me', ctrlContant.getIndex);
-router.post('/contact-me',ctrlContant.sendEmail)
+router.post('/contact-me',ctrlContant.sendEmail);
 
 router.get('/login', ctrlLogin.getIndex);
+router.post('/login',ctrlLogin.postLogin); 
 
 module.exports = router;

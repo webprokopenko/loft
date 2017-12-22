@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
+const session = require('express-session');
 var app = express();
 
 // view engine setup
@@ -9,6 +10,18 @@ app.set('view engine', 'pug');
 // body parser set
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
+
+app.use(session({
+  secret: 'secret',
+  key: 'key',
+  cookie: {
+    path: '/',
+    httpOnly: true,
+    maxAge: null
+  },
+  saveUninitialized: false,
+  resave: false
+}));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -28,6 +41,6 @@ app.use(function(err, req, res, next) {
   //res.render('error', { message: err.message, error: err });
 });
 
-const server = app.listen(process.env.PORT || 2200, function() {
+const server = app.listen(process.env.PORT || 2300, function() {
   console.log('Сервер запущен на порте: ' + server.address().port);
 });

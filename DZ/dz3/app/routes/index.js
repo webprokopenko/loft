@@ -18,8 +18,4 @@ router.post('/contact-me',ctrlContant.sendEmail);
 router.get('/login', ctrlLogin.getIndex);
 router.post('/login',ctrlLogin.postLogin); 
 
-router.get('/test',function(res,req){
-    res.render('common/test');
-})
-
 module.exports = router;

@@ -4,7 +4,6 @@ const path = require('path');
 const db = require('../models/db')();
 
 module.exports.getIndex = function (req, res) {
-    console.log(db.stores.file.store);
     res.render('pages/my-work', { title: 'Мои работы', isAdmin: req.session.isAdmin , pic: db.stores.file.store});
 }
 
@@ -34,6 +33,7 @@ module.exports.addWork = function (req, res, next) {
         }
 
         fileName = path.join(upload, files.file.name);
+        fileNamedb = path.join('upload',files.file.name);
 
         fs.rename(files.file.path, fileName, function (err) {
             if (err) {
@@ -42,7 +42,7 @@ module.exports.addWork = function (req, res, next) {
                 fs.rename(files.file.path, fileName); 
             }
             let dir = fileName.substr(fileName.indexOf('\\'));
-            db.set(fields.projectName, {directory:fileName,url:fields.projectUrl,description:fields.text});
+            db.set(fields.projectName, {directory:fileNamedb,url:fields.projectUrl,description:fields.text});
             db.save();
             return res.json({msg:'Проект успешно загружен',status:'OK'})
         });

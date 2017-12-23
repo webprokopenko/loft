@@ -1,0 +1,34 @@
+extends ../layouts/main_layout.pug
+
+block link
+	-var selected = 'Мои работы';
+	
+
+block title
+	title= title 
+
+block content
+	section.aboutbox
+		.aboutbox-header Мои работы
+		.aboutbox-body.clearfix
+			.projects-wrapper
+				.projects-list
+					each item,index in pic	
+						li.projects-item
+							.hover-img
+								img.project-img(src=`${item.directory}`)
+								.zoom-wrapper
+									a.zoom-link(href=`${item.url}`, target="_blank")= item.url
+							a.project-link(href=`${item.url}`, target="_blank")= item.url
+							.project-desc= item.description
+					else 
+						li Projects empty
+
+					//- Добавить проект
+					if(isAdmin)
+							li.projects-item.add-new-item
+								a.add-new-link#add-new-item(href="#")
+									.add-new-text Добавить проект
+					//- Изображения из базы						
+
+	include ../common/popup.pug

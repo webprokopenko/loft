@@ -17,40 +17,49 @@ app.use(serve(__dirname + '/public'));
 
 const mainPage = ctx => {
     ctx.set('Content-Type', 'text/html');
-    ctx.body = pug.render('pages/index',{ title: 'Главная страница' });
+    ctx.body = pug.render('pages/index', { title: 'Главная страница' });
 };
 const loginPage = ctx => {
     ctx.set('Content-Type', 'text/html');
-    ctx.body = pug.render('pages/login',{ title: 'Авторизация' });
+    ctx.body = pug.render('pages/login', { title: 'Авторизация' });
 }
-const contactMePage = ctx =>{
+const contactMePage = ctx => {
     ctx.set('Content-Type', 'text/html');
-    ctx.body = pug.render('pages/contact-me',{ title: 'Связаться со мной' });
+    ctx.body = pug.render('pages/contact-me', { title: 'Связаться со мной' });
 }
-const myWorkPage = ctx =>{
+const myWorkPage = ctx => {
     ctx.set('Content-Type', 'text/html');
-    ctx.body = pug.render('pages/my-work',{ title: 'Мои работы' });
+    ctx.body = pug.render('pages/my-work', { title: 'Мои работы' });
 }
 
 router.get('/', mainPage);
 router.get('/login', loginPage);
-router.get('/contact-me',contactMePage);
-router.post('/contact-me',koaBody(), async ctx=>{
-    if (!ctx.request.body.name || !ctx.request.body.email || !ctx.request.body.message) {
-        console.log({mes:'Все поля нужно заполнить!', status: 'Error'});
-        return ctx.body = {mes:'Все поля нужно заполнить!', status: 'Error'};
+router.post('/login', koaBody(), async ctx => {
+    console.log(ctx.request.body);
+});
+router.get('/contact-me', contactMePage);
+router.post('/contact-me', koaBody(), async ctx => {
+    if (
+        !ctx.request.body.name ||
+        !ctx.request.body.email ||
+        !ctx.request.body.message
+    ) {
+        return (ctx.body = { mes: 'Все поля нужно заполнить!', status: 'Error' });
     }
-    ModelsEmail(ctx.request.body.name,ctx.request.body.email,ctx.request.body.message,function(err){
-        if(err !== null){
-            console.log({mes:'Письмо не отправлено',status:'Error'});
-            return ctx.body = {mes:'Письмо не отправлено',status:'Error'};
-        }else{
-            console.log({mes:'Сообщение отправлено! ',status:'OK!!'});
-            return ctx.body = {mes:'Сообщение отправлено! ',status:'OK!!'};
-        } 
-    });
-})
-router.get('/my-work',myWorkPage);
+
+    let send = await ModelsEmail(
+        ctx.request.body.name,
+        ctx.request.body.email,
+        ctx.request.body.message
+    );
+
+    if (send !== void 0) {
+        return (ctx.body = { mes: 'Письмо не отправлено', status: 'Error' });
+    } else {
+        ctx.body = { mes: 'Сообщение отправлено! ', status: 'OK' };
+    }
+});
+router.get('/my-work', myWorkPage);
 
 app.use(router.routes());
 

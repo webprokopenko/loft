@@ -7,6 +7,8 @@ const Pug = require('koa-pug');
 const koaBody = require('koa-body');
 const ModelsEmail = require('./models/sendEmail');
 
+console.log(void 0);
+
 const pug = new Pug({
     viewPath: './views',
     basedir: './views',

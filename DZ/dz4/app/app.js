@@ -1,3 +1,4 @@
+const session = require('koa-session');
 const Koa = require('koa');
 const app = new Koa();
 const Router = require('koa-router');
@@ -6,6 +7,9 @@ const serve = require('koa-static');
 const Pug = require('koa-pug');
 const koaBody = require('koa-body');
 const ModelsEmail = require('./models/sendEmail');
+const fs = require('fs');
+const path = require('path');
+const db = require('./models/db')();
 
 console.log(void 0);
 
@@ -14,6 +18,17 @@ const pug = new Pug({
     basedir: './views',
     app: app
 });
+const CONFIG = {
+    key: 'koa:sess', /** (string) cookie key (default is koa:sess) */
+    maxAge: 86400000,
+    overwrite: true, /** (boolean) can overwrite or not (default true) */
+    httpOnly: true, /** (boolean) httpOnly or not (default true) */
+    signed: true, /** (boolean) signed or not (default true) */
+    rolling: false, /** (boolean) Force a session identifier cookie to be set on every response. The expiration is reset to the original maxAge, resetting the expiration countdown. default is false **/
+  };
+app.keys = ['secret', 'key'];
+app.use(session(CONFIG, app));
+  
 
 app.use(serve(__dirname + '/public'));
 
@@ -31,13 +46,19 @@ const contactMePage = ctx => {
 }
 const myWorkPage = ctx => {
     ctx.set('Content-Type', 'text/html');
-    ctx.body = pug.render('pages/my-work', { title: 'Мои работы' });
+    ctx.body = pug.render('pages/my-work', { title: 'Мои работы', isAdmin: ctx.session.login , pic: db.stores.file.store });
 }
 
 router.get('/', mainPage);
 router.get('/login', loginPage);
 router.post('/login', koaBody(), async ctx => {
-    console.log(ctx.request.body);
+    if(ctx.request.body.login === 'admin' && ctx.request.body.password === 'admin'){
+        ctx.session.login = true;
+        return (ctx.body = {msg:'Авторизация успешна', status: 'OK'});
+    }else{
+        ctx.session.login = true;
+        return (ctx.body = {msg:'Логин и/или пароль введены не верно!', status: 'Error'});
+    }
 });
 router.get('/contact-me', contactMePage);
 router.post('/contact-me', koaBody(), async ctx => {

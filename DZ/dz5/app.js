@@ -1,11 +1,17 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const path = require('path');
 const app = express();
 
+//view engine setup
 app.engine('html', require('ejs').renderFile);
-app.set('view engine', 'ejs')
+app.set('view engine', 'ejs');
+// body parser set
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
+//static file
 app.use(express.static(path.join(__dirname, 'public')));
-
+//routes require
 app.use('/', require('./routes/index'));
 
 // catch 404 and forward to error handler

@@ -3,6 +3,11 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const app = express();
 
+const mongoose = require('mongoose');
+
+mongoose.Promise = global.Promise;
+mongoose.connect('mongodb://root:root@ds247317.mlab.com:47317/loftsystem', { useMongoClient: true });
+
 //view engine setup
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'ejs');

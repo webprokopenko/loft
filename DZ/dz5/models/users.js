@@ -1,8 +1,9 @@
 let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
+const bCrypt = require('bcryptjs');
 
 let usersSchema = new Schema({
-  name: {
+  username: {
     type: String,
     required: [true, 'Укажите Имя'],
     unique: true
@@ -17,15 +18,28 @@ let usersSchema = new Schema({
     unique: false,
     required:false,
   },
-  access_token:{
+  surName:{
     type: String,
-    unique: true,
-    required:true,
+    unique: false,
+    require: false
   },
-  img:{
+  access_token:{
     type: String,
     unique: false,
     required:false,
+  },
+  image:{
+    type: String,
+    unique: false,
+    required:false,
+    default:""
+  },
+  permission:{
+    type:Object,
+  },
+  permissionId:{
+    type: String,
+    default:""
   },
   password: {
     type: String,
@@ -33,5 +47,13 @@ let usersSchema = new Schema({
     unique: false
   }
 });
+
+usersSchema.methods.setPassword = function(password) {
+  this.password = bCrypt.hashSync(password, bCrypt.genSaltSync(10), null);
+};
+
+usersSchema.methods.validPassword = function(password) {
+  return bCrypt.compareSync(password, this.password);
+};
 
 mongoose.model('users', usersSchema);

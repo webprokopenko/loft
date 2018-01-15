@@ -12,7 +12,7 @@ mongoose.connect('mongodb://root:root@ds247317.mlab.com:47317/loftsystem', { use
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'ejs');
 // body parser set
-app.use(bodyParser.json());
+app.use(bodyParser.json({ type: 'text/plain' }));
 app.use(bodyParser.urlencoded({extended: false}));
 //static file
 app.use(express.static(path.join(__dirname, 'public')));
@@ -30,7 +30,7 @@ app.use(function(req, res, next) {
 app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
-  res.render('error', { message: err.message, error: err });
+  //res.render('error', { message: err.message, error: err });
 });
 
 const server = app.listen(process.env.PORT || 2100, function() {

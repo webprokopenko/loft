@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "eth-lightwallet": "^3.0.1",
     "express": "^4.16.2",
     "koa": "^2.4.1",
     "koa-body": "^2.5.0",

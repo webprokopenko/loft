@@ -41,6 +41,10 @@ let usersSchema = new Schema({
     type: String,
     default:""
   },
+  id:{
+    type:String,
+    required: true,
+  },
   password: {
     type: String,
     required: [true, 'Укажите Пароль'],

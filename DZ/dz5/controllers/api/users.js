@@ -5,6 +5,18 @@ const User = mongoose.model('users');
 const jwt = require("jwt-simple");
 require('../../config/passport-config');
 
+module.exports.getUserById = function(userId){
+    let id = userId;
+    return new Promise((resolve,reject)=>{
+        User.findOne({id:userId})
+        .then(item=>{
+            resolve(item);
+        })
+        .catch(e=>{reject(e);})
+    });
+    
+
+};
 module.exports.saveUsers = function (req, res) {
 
     if (!req.body.username || !req.body.password || !req.body.firstName) {

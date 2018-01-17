@@ -13,6 +13,12 @@ let newsSchema = new Schema({
     },
     theme:{
         type: String
+    },
+    id:{
+        type: String
+    },
+    user:{
+        type: String
     }
 });
 

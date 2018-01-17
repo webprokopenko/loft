@@ -33,6 +33,6 @@ app.use(function(err, req, res, next) {
   //res.render('error', { message: err.message, error: err });
 });
 
-const server = app.listen(process.env.PORT || 2100, function() {
+const server = app.listen(process.env.PORT || 2200, function() {
   console.log('Сервер запущен на порте: ' + server.address().port);
 });
